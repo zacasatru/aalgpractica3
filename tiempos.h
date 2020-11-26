@@ -33,6 +33,8 @@ typedef struct tiempo {
 
 
 /* Funciones */
+typedef int (* pfunc_busqueda)(int*, int,int,int,int*);
+typedef int (* pfunc_generador_claves)(int*);
 
 short guarda_tabla_tiempos(char* fichero, PTIEMPO tiempo, int n_tiempos);
 
