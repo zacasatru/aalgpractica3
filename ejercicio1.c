@@ -80,7 +80,8 @@ int main(int argc, char** argv)
     exit(-1);
   }
 
-  nob = busca_diccionario(pdicc,clave,&pos,blin);
+  nob = busca_diccionario(pdicc,clave,&pos,blin_auto);
+
 
   if(nob == ERR) {
     printf("Error al buscar la clave %d\n",clave);

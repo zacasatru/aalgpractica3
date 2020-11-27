@@ -13,6 +13,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <assert.h>
 
 /**
  *  Funciones de geracion de claves
@@ -69,7 +70,7 @@ PDICC ini_diccionario(int tamanio, char orden)
   pdic->orden = orden;
   pdic->tamanio = tamanio;
   pdic->n_datos = 0;
-  pdic->tabla = (char *)malloc(tamanio * sizeof(pdic->tabla[0]));
+  pdic->tabla = (int *)malloc(tamanio * sizeof(pdic->tabla[0]));
   if (pdic->tabla == NULL)
     return NULL;
   return pdic;
@@ -95,16 +96,16 @@ int inserta_diccionario(PDICC pdicc, int clave)
     /*actualizacion del numero de datos*/
     pdicc->n_datos++;
   }
+  
+  
   if (pdicc->orden == ORDENADO)
   {
     pdicc->tabla[pdicc->n_datos] = clave;
 
     /*Control de errores auxiliar*/
     if(pdicc->n_datos==0){
-      pdicc->tabla[pdicc->n_datos] = clave;
-       
-       /*actualizacion del numero de datos*/
        pdicc->n_datos++;
+       return OK;
 
     }
     /*fragmento insertsort*/
@@ -155,14 +156,14 @@ int bbin(int *tabla, int P, int U, int clave, int *ppos)
   while(start<=end){
       m= (start+end)/2;
       resultado= tabla[m]-clave;
-      if(++cont && resultado==0){
-        (*ppos)=m;
-        return OK;
+      ++cont;
+      if(resultado==0){
+        (*ppos)=m+1;
+        return cont;
       }
-      if(++cont && resultado<0){
+      if(resultado<0){
         start=m+1;
       }else {
-        ++cont;
         end=m-1;
       }
   }
@@ -178,14 +179,14 @@ int blin(int *tabla, int P, int U, int clave, int *ppos)
   assert(tabla!=NULL && ppos!=NULL);
   for (i=P; i<U; i++){
     if(tabla[i]==clave){
-      (*ppos)=i;
-      return OK;
+      (*ppos)=i+1;
+      return i;
     }
   }
   (*ppos)=NO_ENCONTRADO;
   return i;
 }
-int swap(int *a, int *b)
+int swap2(int *a, int *b)
 {
   int aux;
   assert(a != NULL && b != NULL);
@@ -201,11 +202,11 @@ int blin_auto(int *tabla, int P, int U, int clave, int *ppos)
   assert(tabla!=NULL && ppos!=NULL);
   for (i=P; i<U; i++){
     if(tabla[i]==clave){
-      (*ppos)=i;
-      if(i>0) swap(&tabla[i], &tabla[i-1]);
-      return OK;
+      (*ppos)=i+1;
+      if(i>0) swap2(&tabla[i], &tabla[i-1]);
+      return i;
     }
   }
   (*ppos)=NO_ENCONTRADO;
-  return OK;
+  return i;
 }
