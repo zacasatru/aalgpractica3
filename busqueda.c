@@ -137,7 +137,29 @@ int busca_diccionario(PDICC pdicc, int clave, int *ppos, pfunc_busqueda metodo)
 /* Funciones de busqueda del TAD Diccionario */
 int bbin(int *tabla, int P, int U, int clave, int *ppos)
 {
-  /* vuestro codigo */
+  int start=P;
+  int end=U;
+  int m=0;
+  int resultado=0;
+  assert(tabla !=NULL && ppos!=NULL);
+
+  while(start<=end){
+      m= (start+end)/2;
+      resultado= tabla[m]-clave;
+      if(resultado==0){
+        (*ppos)=m;
+        return OK;
+      }
+      if(resultado<0){
+        start=m+1;
+      }else {
+        end=m-1;
+      }
+  }
+  (*ppos)=NO_ENCONTRADO;
+  return ERR;
+  
+
 }
 
 int blin(int *tabla, int P, int U, int clave, int *ppos)
