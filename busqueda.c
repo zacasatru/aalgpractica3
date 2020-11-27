@@ -149,23 +149,25 @@ int bbin(int *tabla, int P, int U, int clave, int *ppos)
   int end=U;
   int m=0;
   int resultado=0;
+  int cont=0;
   assert(tabla !=NULL && ppos!=NULL);
 
   while(start<=end){
       m= (start+end)/2;
       resultado= tabla[m]-clave;
-      if(resultado==0){
+      if(++cont && resultado==0){
         (*ppos)=m;
         return OK;
       }
-      if(resultado<0){
+      if(++cont && resultado<0){
         start=m+1;
       }else {
+        ++cont;
         end=m-1;
       }
   }
   (*ppos)=NO_ENCONTRADO;
-  return OK;
+  return cont;
   
 
 }
@@ -181,7 +183,7 @@ int blin(int *tabla, int P, int U, int clave, int *ppos)
     }
   }
   (*ppos)=NO_ENCONTRADO;
-  return OK;
+  return i;
 }
 int swap(int *a, int *b)
 {
