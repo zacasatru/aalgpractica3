@@ -99,6 +99,14 @@ int inserta_diccionario(PDICC pdicc, int clave)
   {
     pdicc->tabla[pdicc->n_datos] = clave;
 
+    /*Control de errores auxiliar*/
+    if(pdicc->n_datos==0){
+      pdicc->tabla[pdicc->n_datos] = clave;
+       
+       /*actualizacion del numero de datos*/
+       pdicc->n_datos++;
+
+    }
     /*fragmento insertsort*/
     a = pdicc->tabla[pdicc->n_datos];
     j = pdicc->n_datos - 1;
