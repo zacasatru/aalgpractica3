@@ -175,8 +175,27 @@ int blin(int *tabla, int P, int U, int clave, int *ppos)
   (*ppos)=NO_ENCONTRADO;
   return OK;
 }
+int swap(int *a, int *b)
+{
+  int aux;
+  assert(a != NULL && b != NULL);
+  aux = (*a);
+  (*a) = (*b);
+  (*b) = aux;
+  return OK;
+}
 
 int blin_auto(int *tabla, int P, int U, int clave, int *ppos)
 {
-  /* vuestro codigo */
+   int i=0;
+  assert(tabla!=NULL && ppos!=NULL);
+  for (i=P; i<U; i++){
+    if(tabla[i]==clave){
+      (*ppos)=i;
+      if(i>0) swap(&tabla[i], &tabla[i-1]);
+      return OK;
+    }
+  }
+  (*ppos)=NO_ENCONTRADO;
+  return OK;
 }
