@@ -157,14 +157,23 @@ int bbin(int *tabla, int P, int U, int clave, int *ppos)
       }
   }
   (*ppos)=NO_ENCONTRADO;
-  return ERR;
+  return OK;
   
 
 }
 
 int blin(int *tabla, int P, int U, int clave, int *ppos)
 {
-  /* vuestro codigo */
+  int i=0;
+  assert(tabla!=NULL && ppos!=NULL);
+  for (i=P; i<U; i++){
+    if(tabla[i]==clave){
+      (*ppos)=i;
+      return OK;
+    }
+  }
+  (*ppos)=NO_ENCONTRADO;
+  return OK;
 }
 
 int blin_auto(int *tabla, int P, int U, int clave, int *ppos)
