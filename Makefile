@@ -1,6 +1,6 @@
 CC = gcc -ansi -pedantic
 CFLAGS = -Wall
-EXE = ejercicio1 
+EXE = ejercicio1 ejercicio2 
 
 all : $(EXE)
 
@@ -45,3 +45,8 @@ busqueda.o : busqueda.c busqueda.h
 ejercicio1_test:
 	@echo Ejecutando ejercicio1
 	@./ejercicio1 -tamanio 1
+
+
+ejercicio2_test:
+	@echo Ejecutando ejercicio2
+	@./ejercicio2 -num_min 1 -num_max 5 -incr 1 -numP 5 -fichSalida ejercicio5.txt

@@ -33,7 +33,7 @@ typedef struct diccionario {
   int *tabla;  /* tabla de datos */
 } DICC, *PDICC;
 
-typedef int (* pfunc_busqueda)(int*, int, int, int, int*);
+typedef int (* pfunc_busqueda)(int*, int , int , int , int*);
 typedef void (* pfunc_generador_claves)(int*, int, int);
 
 /* TAD Diccionario */
