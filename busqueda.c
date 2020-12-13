@@ -96,17 +96,16 @@ int inserta_diccionario(PDICC pdicc, int clave)
     /*actualizacion del numero de datos*/
     pdicc->n_datos++;
   }
-  
-  
+
   if (pdicc->orden == ORDENADO)
   {
     pdicc->tabla[pdicc->n_datos] = clave;
 
     /*Control de errores auxiliar*/
-    if(pdicc->n_datos==0){
-       pdicc->n_datos++;
-       return OK;
-
+    if (pdicc->n_datos == 0)
+    {
+      pdicc->n_datos++;
+      return OK;
     }
     /*fragmento insertsort*/
     a = pdicc->tabla[pdicc->n_datos];
@@ -146,44 +145,49 @@ int busca_diccionario(PDICC pdicc, int clave, int *ppos, pfunc_busqueda metodo)
 /* Funciones de busqueda del TAD Diccionario */
 int bbin(int *tabla, int P, int U, int clave, int *ppos)
 {
-  int start=P;
-  int end=U;
-  int m=0;
-  int resultado=0;
-  int cont=0;
-  assert(tabla !=NULL && ppos!=NULL);
+  int start = P;
+  int end = U;
+  int m = 0;
+  int resultado = 0;
+  int cont = 0;
+  assert(tabla != NULL && ppos != NULL);
 
-  while(start<=end){
-      m= (start+end)/2;
-      resultado= tabla[m]-clave;
-      ++cont;
-      if(resultado==0){
-        (*ppos)=m+1;
-        return cont;
-      }
-      if(resultado<0){
-        start=m+1;
-      }else {
-        end=m-1;
-      }
+  while (start <= end)
+  {
+    m = (start + end) / 2;
+    resultado = tabla[m] - clave;
+    ++cont;
+    if (resultado == 0)
+    {
+      (*ppos) = m + 1;
+      return cont;
+    }
+    if (resultado < 0)
+    {
+      start = m + 1;
+    }
+    else
+    {
+      end = m - 1;
+    }
   }
-  (*ppos)=NO_ENCONTRADO;
+  (*ppos) = NO_ENCONTRADO;
   return cont;
-  
-
 }
 
 int blin(int *tabla, int P, int U, int clave, int *ppos)
 {
-  int i=0;
-  assert(tabla!=NULL && ppos!=NULL);
-  for (i=P; i<U; i++){
-    if(tabla[i]==clave){
-      (*ppos)=i+1;
+  int i = 0;
+  assert(tabla != NULL && ppos != NULL);
+  for (i = P; i < U; i++)
+  {
+    if (tabla[i] == clave)
+    {
+      (*ppos) = i + 1;
       return i;
     }
   }
-  (*ppos)=NO_ENCONTRADO;
+  (*ppos) = NO_ENCONTRADO;
   return i;
 }
 int swap2(int *a, int *b)
@@ -198,15 +202,20 @@ int swap2(int *a, int *b)
 
 int blin_auto(int *tabla, int P, int U, int clave, int *ppos)
 {
-   int i=0;
-  assert(tabla!=NULL && ppos!=NULL);
-  for (i=P; i<U; i++){
-    if(tabla[i]==clave){
-      (*ppos)=i+1;
-      if(i>0) swap2(&tabla[i], &tabla[i-1]);
+  int i = 0;
+  int cont = 0;
+  assert(tabla != NULL && ppos != NULL);
+  for (i = P; i < U; i++)
+  {
+    cont++;
+    if (tabla[i] == clave)
+    {
+      (*ppos) = i + 1;
+      if (i > 0)
+        swap2(&tabla[i], &tabla[i - 1]);
       return i;
     }
   }
-  (*ppos)=NO_ENCONTRADO;
-  return i;
+  (*ppos) = NO_ENCONTRADO;
+  return cont;
 }
